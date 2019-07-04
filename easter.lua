@@ -40,7 +40,6 @@ local function random_reward()
     return scaled_rewards[1].name
 end
 
-
 minetest.register_node('holidays:easter_egg', {
 	description = 'Easter egg',
 	drawtype = 'mesh',
@@ -61,19 +60,21 @@ minetest.register_node('holidays:easter_egg', {
             end
         end
         minetest.remove_node(pos)
-    end
+    end,
+	on_construct = function(pos)
+		if holidays.holiday ~= holidays.holidays.easter then
+			minetest.remove_node(pos)
+		end
+	end,
 })
 
 
-if holidays.holiday == holidays.holidays.easter then
-else
+if holidays.holiday ~= holidays.holidays.easter then
     -- remove easter eggs after easter
     minetest.register_lbm({
-        name = 'holidays:remove_easter_eggs',
+        name = 'holidays:remove_easter',
         nodenames = {'holidays:easter_egg'},
         run_at_every_load = false,
-        action = function(pos)
-            minetest.remove_node(pos)
-        end
+        action = minetest.remove_node
     })
 end
