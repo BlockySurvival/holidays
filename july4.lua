@@ -137,9 +137,9 @@ if holidays.holiday == holidays.holidays.july4 then
     minetest.register_craft({
         output = "holidays:fireworks 1",
         recipe = {
-            {"",                 "group:dye",        ""},
-            {"",                 "default:stick",    ""},
-            {"default:coal_lump","default:coal_lump","default:coal_lump"}
+            {"", "group:dye",        ""},
+            {"", "default:stick",    ""},
+            {"", "default:coal_lump",""}
         },
     })
 
