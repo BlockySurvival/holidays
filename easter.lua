@@ -45,7 +45,7 @@ minetest.register_node('holidays:easter_egg', {
 	drawtype = 'mesh',
 	mesh = 'holidays_easter_egg.obj',
 	tiles = { 'holidays_easter_egg_tile.png', },
-	groups = { dig_immediate = 3 },
+	groups = { dig_immediate = 3, not_in_creative_inventory = 1 },
 	paramtype = 'light',
 	inventory_image = 'holidays_easter_egg.png',
 	wield_image = 'holidays_easter_egg.png',

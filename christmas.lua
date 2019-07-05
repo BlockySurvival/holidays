@@ -4,7 +4,7 @@ minetest.register_node("holidays:ice", {
     tiles = {"default_ice.png"},
     is_ground_content = false,
     paramtype = "light",
-    groups = {cracky = 3, puts_out_fire = 1, cools_lava = 1, slippery = 3},
+    groups = {cracky = 3, puts_out_fire = 1, cools_lava = 1, slippery = 3, not_in_creative_inventory = 1},
     sounds = default.node_sound_glass_defaults(),
     drop = "default:ice"
 })

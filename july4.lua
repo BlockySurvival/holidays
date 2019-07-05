@@ -94,11 +94,18 @@ function holidays.fireworks.finale_timer(pos)
     end
 end
 
+local firework_groups
+if holidays.holiday == holidays.holidays.july4 then
+    firework_groups = { dig_immediate = 3 }
+else
+    firework_groups = { dig_immediate = 3, not_in_creative_inventory = 1 }
+end
+
 minetest.register_node('holidays:fireworks', {
     description = 'Fireworks',
     drawtype = 'plantlike',
     tiles = { 'fireworks_firework.png', },
-    groups = { dig_immediate = 3 },
+    groups = firework_groups,
     paramtype = 'light',
     inventory_image = 'fireworks_firework.png',
     wield_image = 'fireworks_firework.png',
@@ -115,7 +122,7 @@ minetest.register_node('holidays:fireworks', {
 minetest.register_node('holidays:finale', {
     description = 'Finale',
     tiles = { 'fireworks_finale.png' },
-    groups = { dig_immediate = 3 },
+    groups = firework_groups,
     paramtype = 'light',
     inventory_image = 'fireworks_finale.png',
     wield_image = 'fireworks_finale.png',
