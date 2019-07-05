@@ -8,8 +8,7 @@ holidays.holidays = {
     july4 = 3,
 }
 
-holidays.holiday = holidays.holidays.july4
---holidays.holiday = nil
+holidays.holiday = nil
 
 dofile(mp .. "/christmas.lua")
 dofile(mp .. "/easter.lua")
