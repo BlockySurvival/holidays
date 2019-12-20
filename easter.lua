@@ -1,3 +1,8 @@
+if holidays.is_holiday_active("easter") then
+    holidays.log("action", "easter enabled")
+end
+
+
 local REWARDS = {
     -- relative weights of getting a particular reward
     ['farming:chocolate_dark'] = 100,
@@ -6,7 +11,6 @@ local REWARDS = {
     ['default:diamond'] = 1,
     ['mobs_animal:bunny'] = 1,
 }
-
 
 local function scale(weighted_choices)
     local scaled_choices = {}
@@ -36,7 +40,7 @@ local function random_reward()
     end
 
     -- should never get here, but just in case
-    minetest.log('warning', '[holidays:easter] unexpected behavior picking a reward')
+    holidays.log('warning', '[easter] unexpected behavior picking a reward')
     return scaled_rewards[1].name
 end
 
@@ -50,7 +54,7 @@ minetest.register_node('holidays:easter_egg', {
 	inventory_image = 'holidays_easter_egg.png',
 	wield_image = 'holidays_easter_egg.png',
     on_dig = function(pos, node, player)
-        if holidays.holiday == holidays.holidays.easter then
+        if holidays.is_holiday_active("easter") then
             -- only reward players during easter
             local stack = ItemStack({name = random_reward()})
             stack = player:get_inventory():add_item("main", stack)
@@ -62,19 +66,19 @@ minetest.register_node('holidays:easter_egg', {
         minetest.remove_node(pos)
     end,
 	on_construct = function(pos)
-		if holidays.holiday ~= holidays.holidays.easter then
+		if not holidays.is_holiday_active("easter") then
 			minetest.remove_node(pos)
 		end
 	end,
 })
 
 
-if holidays.holiday ~= holidays.holidays.easter then
+if not holidays.is_holiday_active("easter") then
     -- remove easter eggs after easter
     minetest.register_lbm({
         name = 'holidays:remove_easter',
         nodenames = {'holidays:easter_egg'},
-        run_at_every_load = false,
+        run_at_every_load = true,
         action = minetest.remove_node
     })
 end

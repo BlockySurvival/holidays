@@ -1,3 +1,7 @@
+if holidays.is_holiday_active("july4") then
+    holidays.log("action", "july4 enabled")
+end
+
 holidays.fireworks = {}
 
 local firework_height = 30
@@ -95,7 +99,7 @@ function holidays.fireworks.finale_timer(pos)
 end
 
 local firework_groups
-if holidays.holiday == holidays.holidays.july4 then
+if holidays.is_holiday_active("july4") then
     firework_groups = { dig_immediate = 3 }
 else
     firework_groups = { dig_immediate = 3, not_in_creative_inventory = 1 }
@@ -113,7 +117,7 @@ minetest.register_node('holidays:fireworks', {
         holidays.fireworks.firework_ignite(pos)
 	end,
 	on_construct = function(pos)
-		if holidays.holiday ~= holidays.holidays.july4 then
+		if not holidays.is_holiday_active("july4") then
 			minetest.remove_node(pos)
 		end
 	end,
@@ -130,7 +134,7 @@ minetest.register_node('holidays:finale', {
         minetest.get_node_timer(pos):start(0.5)
     end,
     on_construct = function(pos)
-		if holidays.holiday == holidays.holidays.july4 then
+		if holidays.is_holiday_active("july4") then
 			local meta = minetest.get_meta(pos)
 			meta:set_int("count", 50)
 		else
@@ -140,7 +144,7 @@ minetest.register_node('holidays:finale', {
     on_timer = holidays.fireworks.finale_timer
 })
 
-if holidays.holiday == holidays.holidays.july4 then
+if holidays.is_holiday_active("july4") then
     minetest.register_craft({
         output = "holidays:fireworks 1",
         recipe = {
