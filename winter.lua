@@ -15,7 +15,7 @@ minetest.register_node("holidays:ice", {
 })
 
 minetest.register_node("holidays:dirt_with_snow", {
-    description = S("Holiday dirt with Snow"),
+    description = "Holiday dirt with Snow",
     tiles = {"default_snow.png", "default_dirt.png",
             {name = "default_dirt.png^default_snow_side.png",
                     tileable_vertical = false}},
