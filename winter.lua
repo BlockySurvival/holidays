@@ -57,9 +57,19 @@ if holidays.is_holiday_active("winter") then
         recipe = {"default:bucket_water"},
     })
     minetest.register_craft({
+        output = "default:bucket_water",
+        type = "shapeless",
+        recipe = {"default:bucket_river_water"},
+    })
+    minetest.register_craft({
         output = "default:river_water_source",
         type = "shapeless",
         recipe = {"default:water_source"},
+    })
+    minetest.register_craft({
+        output = "default:water_source",
+        type = "shapeless",
+        recipe = {"default:river_water_source"},
     })
     minetest.register_craft({
         output = "default:water_source",
