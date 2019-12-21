@@ -4,7 +4,7 @@ holidays.modname = minetest.get_current_modname()
 holidays.modpath = minetest.get_modpath(holidays.modname)
 
 function holidays.log(level, message, ...)
-    return minetest.log(level, ("[%s] %s"):format(modname, message:format(...)))
+    return minetest.log(level, ("[%s] %s"):format(holidays.modname, message:format(...)))
 end
 
 --[[
