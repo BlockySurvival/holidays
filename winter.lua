@@ -14,6 +14,19 @@ minetest.register_node("holidays:ice", {
     drop = "default:ice"
 })
 
+minetest.register_node("holidays:dirt_with_snow", {
+    description = S("Holiday dirt with Snow"),
+    tiles = {"default_snow.png", "default_dirt.png",
+            {name = "default_dirt.png^default_snow_side.png",
+                    tileable_vertical = false}},
+    is_ground_content = false,
+    groups = {crumbly = 3, soil = 1, spreading_dirt_type = 1, snowy = 1, not_in_creative_inventory = 1},
+    drop = "default:dirt",
+    sounds = default.node_sound_dirt_defaults({
+            footstep = {name = "default_snow_footstep", gain = 0.2},
+    }),
+})
+
 
 if holidays.is_holiday_active("winter") then
     -- ABM to convert surface water to ice
@@ -27,6 +40,16 @@ if holidays.is_holiday_active("winter") then
             minetest.set_node(pos, {name = "holidays:ice"})
         end
     })
+    minetest.register_abm({
+        label = "Place Holiday Dirt",
+        nodenames = {"default:dirt_with_grass"},
+        neighbors = {"air"},
+        interval = 1,
+        chance = 10,
+        action = function(pos)
+            minetest.set_node(pos, {name = "holidays:dirt_with_snow"})
+        end
+    })
 else
     -- ABM to remove ice
     minetest.register_abm({
@@ -36,6 +59,15 @@ else
         chance = 10,
         action = function(pos)
             minetest.set_node(pos, {name = "default:water_source"})
+        end
+    })
+    minetest.register_abm({
+        label = "Remove Holiday Dirt",
+        nodenames = {"holidays:dirt_with_snow"},
+        interval = 1,
+        chance = 10,
+        action = function(pos)
+            minetest.set_node(pos, {name = "default:dirt_with_grass"})
         end
     })
 end
