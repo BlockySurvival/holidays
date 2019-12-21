@@ -61,6 +61,11 @@ if holidays.is_holiday_active("winter") then
         type = "shapeless",
         recipe = {"default:water_source"},
     })
+    minetest.register_craft({
+        output = "default:water_source",
+        type = "cooking",
+        recipe = "default:ice",
+    })
 else
     -- ABM to remove ice
     minetest.register_abm({
