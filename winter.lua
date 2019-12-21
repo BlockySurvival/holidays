@@ -50,6 +50,17 @@ if holidays.is_holiday_active("winter") then
             minetest.set_node(pos, {name = "holidays:dirt_with_snow"})
         end
     })
+
+    minetest.register_craft({
+        output = "default:bucket_river_water",
+        type = "shapeless",
+        recipe = {"default:bucket_water"},
+    })
+    minetest.register_craft({
+        output = "default:river_water_source",
+        type = "shapeless",
+        recipe = {"default:water_source"},
+    })
 else
     -- ABM to remove ice
     minetest.register_abm({
