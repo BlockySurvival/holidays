@@ -34,18 +34,22 @@ if holidays.is_holiday_active("winter") then
         label = "Place Holiday Ice",
         nodenames = {"default:water_source"},
         neighbors = {"air"},
-        interval = 1,
-        chance = 10,
+        interval = 2.1,
+        chance = 5,
+        catch_up = false,
         action = function(pos)
-            minetest.set_node(pos, {name = "holidays:ice"})
+            if pos.y > 0 then
+                minetest.set_node(pos, {name = "holidays:ice"})
+            end
         end
     })
     minetest.register_abm({
         label = "Place Holiday Dirt",
         nodenames = {"default:dirt_with_grass"},
         neighbors = {"air"},
-        interval = 1,
-        chance = 10,
+        interval = 2.3,
+        chance = 5,
+        catch_up = false,
         action = function(pos)
             minetest.set_node(pos, {name = "holidays:dirt_with_snow"})
         end
@@ -81,8 +85,9 @@ else
     minetest.register_abm({
         label = "Remove Holiday Ice",
         nodenames = {"holidays:ice"},
-        interval = 1,
+        interval = 1.1,
         chance = 10,
+        catch_up = false,
         action = function(pos)
             minetest.set_node(pos, {name = "default:water_source"})
         end
@@ -90,8 +95,9 @@ else
     minetest.register_abm({
         label = "Remove Holiday Dirt",
         nodenames = {"holidays:dirt_with_snow"},
-        interval = 1,
+        interval = 1.3,
         chance = 10,
+        catch_up = false,
         action = function(pos)
             minetest.set_node(pos, {name = "default:dirt_with_grass"})
         end
