@@ -147,7 +147,7 @@ minetest.register_node('holidays:finale', {
 if holidays.is_holiday_active("fireworks") then
     if minetest.get_modpath("tnt") then
         minetest.register_craft({
-            output = "holidays:fireworks 1",
+            output = "holidays:fireworks 4",
             recipe = {
                 {"", "group:dye",        ""},
                 {"", "default:stick",    ""},
