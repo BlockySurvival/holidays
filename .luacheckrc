@@ -10,6 +10,6 @@ read_globals = {
 	string = {fields = {"split", "trim"}},
 	table = {fields = {"copy", "getn"}},
 
-    "default", "vector",
-    "ItemStack", "scaled_rewards",
+	"default", "vector",
+	"ItemStack", "scaled_rewards",
 }
