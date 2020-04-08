@@ -40,13 +40,13 @@ local function or_(...)
 end
 
 holidays.schedule = {
-    christmas = date_range_predicate({month=12, day=24}, {month=12, day=26}),
-    easter = date_range_predicate({month=4, day=11}, {month=4, day=13}),
+    christmas = date_range_predicate({month=12, day=24}, {month=12, day=26}),  -- 2019 date
+    easter = date_range_predicate({month=4, day=8}, {month=4, day=13}),  -- 2020 date
     fireworks = or_(
-            date_range_predicate({month=7, day=3}, {month=7, day=5}),
-            date_range_predicate({month=12, day=31}, {month=1, day=1})
+            date_range_predicate({month=7, day=2}, {month=7, day=5}), -- july 4th
+            date_range_predicate({month=12, day=31}, {month=1, day=1})  -- new years
     ),
-    winter = date_range_predicate({month=12, day=21}, {month=1, day=1})
+    winter = date_range_predicate({month=12, day=21}, {month=1, day=1}),
 }
 
 function holidays.is_holiday_active(holiday_name)
