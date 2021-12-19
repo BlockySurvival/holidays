@@ -68,9 +68,13 @@ minetest.register_node("holidays:christmas_nexus", {
     end
 })
 
+local humbug_tiles = {"default_coal_block.png^default_mineral_coal.png"}
+if minetest.get_modpath("caverealms") then
+    table.insert(humbug_tiles, "caverealms_coal_dust.png^default_mineral_coal.png")
+end
 minetest.register_node("holidays:humbug_nexus", {
     description = "Humbug Nexus",
-    tiles = {"default_coal_block.png^default_mineral_coal.png","caverealms_coal_dust.png^default_mineral_coal.png"},
+    tiles = humbug_tiles,
     is_ground_content = false,
     groups = {oddly_breakable_by_hand=3},
     sounds = default.node_sound_stone_defaults(),
