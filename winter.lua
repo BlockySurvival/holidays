@@ -32,13 +32,13 @@ local registered_humbug_nexuses = {}
 local effect_radius = 25
 
 local function in_range_of_nexus(nexus, pos)
-    if math.abs(nexus.y - pos.y) > effect_radius then
-        return false
-    end
     if math.abs(nexus.x - pos.x) > effect_radius then
         return false
     end
     if math.abs(nexus.z - pos.z) > effect_radius then
+        return false
+    end
+    if math.abs(nexus.y - pos.y) > effect_radius then
         return false
     end
     return true
