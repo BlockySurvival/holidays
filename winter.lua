@@ -29,31 +29,62 @@ minetest.register_node("holidays:dirt_with_snow", {
 
 
 if holidays.is_holiday_active("winter") then
+    minetest.override_item("default:water_source", {tiles = {"winter_ice.png"}})
+    minetest.override_item("default:dirt_with_grass", {
+        tiles =  {
+            "default_snow.png", "default_dirt.png",
+            {name = "default_dirt.png^default_snow_side.png",
+                    tileable_vertical = false}
+        }
+    })
+
     -- ABM to convert surface water to ice
-    minetest.register_abm({
-        label = "Place Holiday Ice",
-        nodenames = {"default:water_source"},
+    --[[
+    -- Spreading ice & snow, maybe next year after the cleanup LBM has taken full effect
+     minetest.register_abm({
+        label = "Holiday Ice Spread",
+        nodenames = {
+            "holidays:ice",
+            "default:ice",
+        },
         neighbors = {"air"},
-        interval = 2.1,
-        chance = 5,
+        interval = 10,
+        chance = 10,
         catch_up = false,
-        action = function(pos)
-            if pos.y > 0 then
-                minetest.set_node(pos, {name = "holidays:ice"})
+        action = function(pos, node)
+            local num = minetest.find_nodes_in_area_under_air(
+                {x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
+                {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+                "default:water_source")
+            if #num > 0 then
+                minetest.set_node(num[math.random(#num)], {name = "holidays:ice"})
             end
-        end
+        end,
     })
     minetest.register_abm({
-        label = "Place Holiday Dirt",
-        nodenames = {"default:dirt_with_grass"},
+        label = "Holiday Snow Spread",
+        nodenames = {
+            "holidays:ice",
+            "holidays:dirt_with_snow",
+            "default:ice",
+            "default:snowblock",
+            "default:dirt_with_snow",
+        },
         neighbors = {"air"},
-        interval = 2.3,
-        chance = 5,
+        interval = 10,
+        chance = 10,
         catch_up = false,
-        action = function(pos)
-            minetest.set_node(pos, {name = "holidays:dirt_with_snow"})
-        end
+        action = function(pos, node)
+            local num = minetest.find_nodes_in_area_under_air(
+                {x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
+                {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+                "default:dirt_with_grass")
+            if #num > 0 then
+                minetest.set_node(num[math.random(#num)], {name = "holidays:dirt_with_snow"})
+            end
+        end,
     })
+    ]]
 
     minetest.register_craft({
         output = "bucket:bucket_river_water",
@@ -81,25 +112,18 @@ if holidays.is_holiday_active("winter") then
         recipe = "default:ice",
     })
 else
-    -- ABM to remove ice
-    minetest.register_abm({
-        label = "Remove Holiday Ice",
-        nodenames = {"holidays:ice"},
-        interval = 1.1,
-        chance = 10,
-        catch_up = false,
-        action = function(pos)
-            minetest.set_node(pos, {name = "default:water_source"})
-        end
-    })
-    minetest.register_abm({
-        label = "Remove Holiday Dirt",
-        nodenames = {"holidays:dirt_with_snow"},
-        interval = 1.3,
-        chance = 10,
-        catch_up = false,
-        action = function(pos)
-            minetest.set_node(pos, {name = "default:dirt_with_grass"})
-        end
+    -- LBM to remove ice
+    minetest.register_lbm({
+        label = "Remove Holiday Ice & Dirt Immediately",
+        name = "holidays:remove_ice_and_snow",
+        nodenames = {"holidays:ice","holidays:dirt_with_snow"},
+        run_at_every_load = true,
+        action = function(pos, node)
+            if node.name == "holidays:ice" then
+                minetest.set_node(pos, {name = "default:water_source"})
+            elseif node.name == "holidays:dirt_with_snow" then
+                minetest.set_node(pos, {name = "default:dirt_with_grass"})
+            end
+        end,
     })
 end
