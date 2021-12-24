@@ -1,6 +1,5 @@
 -- Is it Christmas?
-if true then
--- if holidays.is_holiday_active("christmas") then
+if holidays.is_holiday_active("christmas") then
     holidays.log("action", "christmas enabled")
 
     -- Special tree textures
