@@ -47,6 +47,7 @@ holidays.schedule = {
             date_range_predicate({month=12, day=31}, {month=1, day=1})  -- new years
     ),
     winter = date_range_predicate({month=12, day=21}, {month=1, day=1}),
+    presents = date_range_predicate({month=12, day=1}, {month=1, day=1}),
 }
 
 function holidays.is_holiday_active(holiday_name)
@@ -60,3 +61,4 @@ dofile(holidays.modpath .. "/christmas.lua")
 dofile(holidays.modpath .. "/easter.lua")
 dofile(holidays.modpath .. "/fireworks.lua")
 dofile(holidays.modpath .. "/winter.lua")
+dofile(holidays.modpath .. "/presents.lua")
