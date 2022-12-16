@@ -27,7 +27,7 @@ register_present("#bb2528", "#146b3a", "(Rare)")
 register_present("#146b3a", "#bb2528", "(Unusual)")
 register_present("#bb2528", "#f0f0f0", "(Common)")
 
-if not holidays.is_holiday_active("presents") then
+if holidays.is_holiday_active("presents") then
     holidays.log("action", "presents enabled")
     minetest.register_on_dignode(function(pos, oldnode, digger)
         if not digger or not digger:is_player() then return end
