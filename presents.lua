@@ -1,4 +1,3 @@
-
 local pnum = 0
 
 local function register_present(c1, c2, lvl)
@@ -20,7 +19,7 @@ local function register_present(c1, c2, lvl)
         stack_max = 65535
     })
     pnum = pnum + 1
-    minetest.register_alias_force(new_name, old_name)
+    minetest.register_alias(old_name, new_name)
 end
 
 register_present("#bb2528", "#146b3a", "(Rare)")
