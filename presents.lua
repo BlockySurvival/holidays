@@ -30,6 +30,14 @@ if holidays.is_holiday_active("presents") then
     holidays.log("action", "presents enabled")
     minetest.register_on_dignode(function(pos, oldnode, digger)
         if not digger or not digger:is_player() then return end
+
+        -- Don't give any presents if it takes less than 0.1 seconds to dig by
+        -- hand
+        local def = minetest.registered_nodes[oldnode.name] or {}
+        local dig_params = minetest.get_dig_params(def.groups or {},
+            minetest.registered_items[""].tool_capabilities)
+        if dig_params.diggable and dig_params.time < 0.1 then return end
+
         local n = math.random(1, 1000)
         if n <= 10 then
             if n == 1 then
