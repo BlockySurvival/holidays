@@ -44,7 +44,7 @@ holidays.schedule = {
     easter = date_range_predicate({month=3, day=27}, {month=4, day=1}),  -- 2024 date
     fireworks = or_(
             date_range_predicate({month=7, day=2}, {month=7, day=5}), -- july 4th
-            date_range_predicate({month=12, day=31}, {month=1, day=1})  -- new years
+            date_range_predicate({month=12, day=27}, {month=1, day=10})  -- new years
     ),
     winter = date_range_predicate({month=12, day=21}, {month=1, day=1}),
     presents = date_range_predicate({month=11, day=6}, {month=1, day=15}),
