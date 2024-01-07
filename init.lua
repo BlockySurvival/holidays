@@ -47,7 +47,7 @@ holidays.schedule = {
             date_range_predicate({month=12, day=27}, {month=1, day=10})  -- new years
     ),
     winter = date_range_predicate({month=12, day=21}, {month=1, day=1}),
-    presents = date_range_predicate({month=11, day=6}, {month=1, day=15}),
+    presents = date_range_predicate({month=11, day=6}, {month=1, day=10}),
 }
 
 function holidays.is_holiday_active(holiday_name)
