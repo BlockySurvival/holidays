@@ -39,9 +39,29 @@ local function or_(...)
     end
 end
 
+-- Easter calculation, copied from dateutil (see LICENSE)
+local floor = math.floor
+local function get_month_and_day(p)
+    return {month=3 + floor((p + 26)/30), day=1 + (p + 27 + floor((p + 6)/40)) % 31}
+end
+
+local function is_easter(date)
+    local y = date.year
+    local g = y % 19
+    local c = floor(y / 100)
+    local h = (c - floor(c/4) - floor((8*c + 13)/25) + 19*g + 15) % 30
+    local i = h - (floor(h/28))*(1 - (floor(h/28))*floor(29/(h + 1))*floor((21 - g)/11))
+    local j = (y + floor(y/4) + i + 2 - c + floor(c/4)) % 7
+    local p = i - j
+
+    local start = get_month_and_day(p - 4)
+    local stop = get_month_and_day(p + 1)
+    return date_lte(start, date) and date_lte(date, stop)
+end
+
 holidays.schedule = {
     christmas = date_range_predicate({month=12, day=1}, {month=12, day=26}),  -- 2019 date
-    easter = date_range_predicate({month=3, day=27}, {month=4, day=1}),  -- 2024 date
+    easter = is_easter,
     fireworks = or_(
             date_range_predicate({month=7, day=2}, {month=7, day=5}), -- july 4th
             date_range_predicate({month=12, day=27}, {month=1, day=10})  -- new years

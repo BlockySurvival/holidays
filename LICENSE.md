@@ -8,6 +8,8 @@ The license for the sounds are listed in the sounds folder.
 
 The easter stuff is CC0.
 
+The date calculation algorithm in init.lua is [copied from dateutil](https://github.com/dateutil/dateutil/blob/1ae807774053c071acc9e7d3d27778fba0a7773e/src/dateutil/easter.py) and is therefore under the [Apache-2.0 license](https://github.com/dateutil/dateutil/blob/1ae807774053c071acc9e7d3d27778fba0a7773e/LICENSE).
+
 ## Christmas
 
 The christmas stuff was written by Billy-S, w/ no given license.
